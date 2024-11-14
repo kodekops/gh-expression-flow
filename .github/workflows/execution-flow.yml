@@ -9,14 +9,18 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+
       - name: Cache dependencies
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit!='true'
         run: npm ci
+
       - name: Lint code
         run: npm run lint
   test:
@@ -24,17 +28,22 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+
       - name: Cache dependencies
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit!='true'
         run: npm ci
+
       - name: Test code
         run: npm run test
         id: run-tests
+
       - name: Upload test report
         if: failure() && steps.run-tests.outcome=='failure'
         uses: actions/upload-artifact@v3
@@ -47,17 +56,22 @@ jobs:
     steps:
       - name: Get code
         uses: actions/checkout@v3
+
       - name: Cache dependencies
         id: cache
         uses: actions/cache@v3
         with:
-          path: ~/.npm
+          path: node_modules
           key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install dependencies
+        if: steps.cache.outputs.cache-hit!='true'
         run: npm ci
+
       - name: Build website
         id: build-website
         run: npm run build
+
       - name: Upload artifacts
         uses: actions/upload-artifact@v3
         with:
@@ -71,8 +85,10 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: dist-files
+
       - name: Output contents
         run: ls
+
       - name: Deploy
         run: echo "Deploying..."
   report:
