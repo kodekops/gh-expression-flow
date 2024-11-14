@@ -24,4 +24,4 @@ jobs:
 
       - name: set result to outputs
         id: set-result
-        run: echo "::set-ouput name=step-result::success"
+        run: echo "::set-output name=step-result::success"
