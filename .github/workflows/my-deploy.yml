@@ -1,0 +1,11 @@
+name: my-demo-deployment
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploying
+        uses: ./.github/workflows/reusable.yml
