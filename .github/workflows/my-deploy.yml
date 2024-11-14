@@ -5,5 +5,4 @@ on:
       - main
 jobs:
   deploy:
-    needs: [checkout]
     uses: ./.github/workflows/reusable.yml
