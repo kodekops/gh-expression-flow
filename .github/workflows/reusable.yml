@@ -9,9 +9,19 @@ on:
     secrets:
       deployment_code:
         required: true
+    outputs:
+      result:
+        description: this is the result of the deployment
+        value: ${{jobs.deploy.outputs.outcome}}
 jobs:
   deploy:
+    outputs:
+      outcome: ${{steps.set-result.outputs.step-result}}
     runs-on: ubuntu-latest
     steps:
       - name: Output information
         run: echo "Deploying...${{inputs.app_name}} with ${{secrets.deployment_code}}"
+
+      - name: set result to outputs
+        id: set-result
+        run: echo "::set-ouput name=step-result::success"

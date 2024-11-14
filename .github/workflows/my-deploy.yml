@@ -10,3 +10,9 @@ jobs:
       app_name: react-webapp
     secrets:
       deployment_code: zipcode
+  print-deployment-result:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: print deployment result
+        run: echo ${{needs.deploy.outputs.result}}
