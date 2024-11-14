@@ -97,4 +97,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: output logs
-        run: echo "${{github}}"
+        run: echo "${{toJSON(github)}}"
