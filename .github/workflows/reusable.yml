@@ -1,8 +1,14 @@
 name: Reusable Deploy
-on: workflow_call
+on:
+  workflow_call:
+    inputs:
+      app_name:
+        default: "web application"
+        description: "this is the name of the web application"
+        type: string
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Output information
-        run: echo "Deploying "
+        run: echo "Deploying...${{inputs.app_name}}"
