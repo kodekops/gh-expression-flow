@@ -6,9 +6,12 @@ on:
         default: "web application"
         description: "this is the name of the web application"
         type: string
+    secrets:
+      deployment_code:
+        required: true
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Output information
-        run: echo "Deploying...${{inputs.app_name}}"
+        run: echo "Deploying...${{inputs.app_name}} with ${{secrets.deployment_code}}"

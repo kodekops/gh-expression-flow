@@ -8,3 +8,5 @@ jobs:
     uses: ./.github/workflows/reusable.yml
     with:
       app_name: react-webapp
+    secrets:
+      deployment_code: zipcode
