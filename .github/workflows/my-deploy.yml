@@ -4,11 +4,14 @@ on:
     branches:
       - main
 jobs:
-  deploy:
+  checkout:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout code
+      - name: checkout the code
         uses: actions/checkout@v4
-
+  deploy:
+    needs: [checkout]
+    runs-on: ubuntu-latest
+    steps:
       - name: deploying
         uses: ./.github/workflows/reusable.yml
